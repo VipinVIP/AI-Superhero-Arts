@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">AI Superhero Arts</string>
     <string name="title1">The Dark Knight</string>
-    <string name="description1">The picture of batman, imagined in midjourney</string>
-    <string name="title2">Princess of Themyscira</string>
-    <string name="description2">The picture of wonderwoman, imagined in midjourney</string>
-    <string name="title3">Son of krypton</string>
-    <string name="description3">The picture of superman, imagined in midjourney</string>
+    <string name="description1">The picture of batman, masterfully crafted in midjourney</string>
+    <string name="title2">The Amazon Princess</string>
+    <string name="description2">The picture of wonderwoman, masterfully crafted in midjourney</string>
+    <string name="title3">The Son of krypton</string>
+    <string name="description3">The picture of superman, masterfully crafted in midjourney</string>
     <string name="title4">The Feline Ninja</string>
-    <string name="description4">The picture of catwoman, imagined in midjourney</string>
+    <string name="description4">The picture of catwoman, masterfully crafted in midjourney</string>
 </resources>
