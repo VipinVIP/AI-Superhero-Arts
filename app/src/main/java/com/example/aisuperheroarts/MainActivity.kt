@@ -14,15 +14,22 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -42,7 +49,39 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ArtsContainer( modifier: Modifier = Modifier) {
-    Column(modifier.fillMaxSize(), verticalArrangement = Arrangement.Bottom, horizontalAlignment = Alignment.CenterHorizontally) {
+    var currentImage by remember {
+        mutableStateOf(1)
+    }
+    fun increment(){
+        if(currentImage<4)
+            currentImage++
+        else
+            currentImage=4
+    }
+    fun decrement(){
+        if(currentImage>1)
+            currentImage--
+        else
+            currentImage=1
+    }
+    val imageResource=when(currentImage){
+        1->R.drawable.superhero_1
+        2->R.drawable.superhero_2
+        3->R.drawable.superhero_3
+        else->R.drawable.superhero_4
+    }
+    val (titleString, descriptionString) = when (currentImage) {
+        1->R.string.title1 to R.string.description1
+        2->R.string.title2 to R.string.description2
+        3->R.string.title3 to R.string.description3
+        else->R.string.title4 to R.string.description4
+    }
+
+
+    Column(
+        modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.Bottom, horizontalAlignment = Alignment.CenterHorizontally) {
         Column(
             Modifier
 
@@ -51,11 +90,11 @@ fun ArtsContainer( modifier: Modifier = Modifier) {
                 .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
             Box(Modifier.shadow(5.dp)) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_background),
-                    contentDescription = "Blah", contentScale = ContentScale.Crop,modifier= Modifier
+                    painter = painterResource( imageResource),
+                    contentDescription = "Superhero image", contentScale = ContentScale.Crop,modifier= Modifier
                         .padding(30.dp)
-                        .height(300.dp)
-                        .width(240.dp)
+                        .height(380.dp)
+                        .width(280.dp)
                 )
             }
         }
@@ -65,23 +104,23 @@ fun ArtsContainer( modifier: Modifier = Modifier) {
                 .padding(10.dp)
                 .background(MaterialTheme.colorScheme.primaryContainer))
         {
-            Text(text = "Art 1", fontSize = 35.sp ,modifier=Modifier.padding(10.dp))
-            Row (Modifier.padding(10.dp)){
-                Text(text = "description", fontWeight = FontWeight.Bold)
-                Text(text = "(2021) ")
-            }
+            Text(text = stringResource(titleString), fontSize = 35.sp ,modifier=Modifier.padding(10.dp))
+
+                Text(text = stringResource(descriptionString), fontWeight = FontWeight.Bold,modifier=Modifier.padding(10.dp))
+
+
         }
         Row(
             Modifier
                 .fillMaxWidth()
                 .padding(15.dp)
             , horizontalArrangement = Arrangement.SpaceBetween) {
-            Button(onClick = { /*TODO*/ },modifier= Modifier
+            Button(onClick = { decrement() },modifier= Modifier
                 .width(150.dp)
                 .height(50.dp)) {
                 Text(text = "Previous",fontSize = 20.sp)
             }
-            Button(onClick = { /*TODO*/ },modifier= Modifier
+            Button(onClick = { increment() },modifier= Modifier
                 .width(150.dp)
                 .height(50.dp)) {
                 Text(text = "Next",fontSize = 20.sp)
